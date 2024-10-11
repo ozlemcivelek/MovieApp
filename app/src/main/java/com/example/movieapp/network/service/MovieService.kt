@@ -7,6 +7,7 @@ import com.example.movieapp.models.UpcomingMovieResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface MovieService {
 
@@ -27,4 +28,10 @@ interface MovieService {
                 "&api_key=${BuildConfig.API_KEY}"
     )
     fun getMovieDetail(@Path("movie_id") movieId: Int): Call<MovieDetailResponse>
+
+    @GET("discover/movie?")
+    fun getDiscoverMovies(
+        @Query("with_genres") genres: String,
+        @Query("api_key") key: String = BuildConfig.API_KEY
+    ): Call<TopRatedMovieResponse>
 }
