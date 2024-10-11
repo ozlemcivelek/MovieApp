@@ -42,5 +42,8 @@
             app:destination="@id/dashboardScreenFragment"
             app:popUpToInclusive="true"
             app:popUpTo="@id/dashboardScreenFragment" />
+        <action
+            android:id="@+id/action_discoverScreenFragment_to_detailScreenFragment"
+            app:destination="@id/detailScreenFragment" />
     </fragment>
 </navigation>
