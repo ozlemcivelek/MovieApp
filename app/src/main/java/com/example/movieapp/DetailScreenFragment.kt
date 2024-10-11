@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.movieapp.databinding.FragmentDetailScreenBinding
 import com.example.movieapp.models.MovieDetailResponse
@@ -20,6 +21,7 @@ class DetailScreenFragment : Fragment() {
 
     private var _binding: FragmentDetailScreenBinding? = null
     private val binding get() = _binding!!
+    var str = ""
 
     val args by navArgs<DetailScreenFragmentArgs>()
 
@@ -35,22 +37,22 @@ class DetailScreenFragment : Fragment() {
         val view = binding.root
         getMovieDetail()
 
-        binding.detailScreenBackBtn.setOnClickListener{
-            val action = DetailScreenFragmentDirections.actionDetailScreenFragmentToDashboardScreenFragment()
-            view?.findNavController()?.navigate(action)
+        binding.detailScreenBackBtn.setOnClickListener {
+            findNavController().popBackStack()
         }
 
-        binding.detailScreenDiscoverBtn.setOnClickListener{
-            val action = DetailScreenFragmentDirections.actionDetailScreenFragmentToDiscoverScreenFragment()
-            view?.findNavController()?.navigate(action)
+        binding.detailScreenDiscoverBtn.setOnClickListener {
+            val action =
+                DetailScreenFragmentDirections.actionDetailScreenFragmentToDiscoverScreenFragment(str)
+            findNavController().navigate(action)
         }
 
         return view
     }
 
-    private fun getMovieDetail(){
+    private fun getMovieDetail() {
         val service = Retrofit.getMovieService()
-        service.getMovieDetail(args.movieId).enqueue(object : Callback<MovieDetailResponse>{
+        service.getMovieDetail(args.movieId).enqueue(object : Callback<MovieDetailResponse> {
             override fun onResponse(
                 call: Call<MovieDetailResponse>,
                 response: Response<MovieDetailResponse>
@@ -59,6 +61,9 @@ class DetailScreenFragment : Fragment() {
 
                     val imageUrl = "https://image.tmdb.org/t/p/w500${responseBody.poster_path}"
                     Picasso.get().load(imageUrl).into(binding.detailScreenImageView)
+
+                    str = responseBody.genres.map { it.id.toString() }.toTypedArray().joinToString("%20or%20")
+                    //Log.d("TAG", "onResponse: $str")
 
                     binding.detailScreenTitle.text = responseBody.title
                     binding.detailScreenOverview.text = responseBody.overview
