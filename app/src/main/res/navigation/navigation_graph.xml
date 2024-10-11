@@ -9,7 +9,7 @@
         android:id="@+id/dashboardScreenFragment"
         android:name="com.example.movieapp.DashboardScreenFragment"
         android:label="fragment_dashboard_screen"
-        tools:layout="@layout/fragment_dashboard_screen" >
+        tools:layout="@layout/fragment_dashboard_screen">
         <action
             android:id="@+id/action_dashboardScreenFragment_to_detailScreenFragment"
             app:destination="@id/detailScreenFragment" />
@@ -18,14 +18,12 @@
         android:id="@+id/detailScreenFragment"
         android:name="com.example.movieapp.DetailScreenFragment"
         android:label="fragment_detail_screen"
-        tools:layout="@layout/fragment_detail_screen" >
+        tools:layout="@layout/fragment_detail_screen">
 
         <argument
             android:name="movieId"
             app:argType="integer" />
-        <action
-            android:id="@+id/action_detailScreenFragment_to_dashboardScreenFragment"
-            app:destination="@id/dashboardScreenFragment" />
+
         <action
             android:id="@+id/action_detailScreenFragment_to_discoverScreenFragment"
             app:destination="@id/discoverScreenFragment" />
@@ -34,12 +32,15 @@
         android:id="@+id/discoverScreenFragment"
         android:name="com.example.movieapp.DiscoverScreenFragment"
         android:label="fragment_discover_screen"
-        tools:layout="@layout/fragment_discover_screen" >
-        <action
-            android:id="@+id/action_discoverScreenFragment_to_detailScreenFragment"
-            app:destination="@id/detailScreenFragment" />
+        tools:layout="@layout/fragment_discover_screen">
+        <argument
+            android:name="genresId"
+            app:argType="string" />
+
         <action
             android:id="@+id/action_discoverScreenFragment_to_dashboardScreenFragment"
-            app:destination="@id/dashboardScreenFragment" />
+            app:destination="@id/dashboardScreenFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/dashboardScreenFragment" />
     </fragment>
 </navigation>
