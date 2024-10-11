@@ -74,6 +74,8 @@ class DiscoverScreenFragment : Fragment() {
                     recyclerViewAdapter?.let {
                         it.onItemClicked = { itemId->
                             Log.d("TAG", "onResponse: Clicked")
+                            val action = DiscoverScreenFragmentDirections.actionDiscoverScreenFragmentToDetailScreenFragment(itemId)
+                            view?.findNavController()?.navigate(action)
 
                         }
                     }
