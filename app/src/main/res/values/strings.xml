@@ -2,4 +2,16 @@
     <string name="app_name">MovieApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="todo">TODO</string>
+    <string name="todo1">TODO</string>
+    <string name="overview">Overview</string>
+    <string name="title">Title</string>
+    <string name="discover">DISCOVER</string>
+    <string name="rate">Rate</string>
+    <string name="back_button">Back Button</string>
+    <string name="discover_title">DISCOVER</string>
+    <string name="close_button">Close Button</string>
+    <string name="overview1">Overview</string>
+    <string name="rate1">Rate</string>
+    <string name="rate_image">Rate Image</string>
 </resources>

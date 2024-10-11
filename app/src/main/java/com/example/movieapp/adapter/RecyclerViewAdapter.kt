@@ -13,7 +13,7 @@ class RecyclerViewAdapter(private var movieModelList: ArrayList<MovieModel>)
     var onItemClicked: (Int) -> Unit = {}
 
     class MovieHolder(val binding: RecyclerRowBinding) : RecyclerView.ViewHolder(binding.root){
-
+//
     }
 
     override fun onCreateViewHolder(
@@ -31,7 +31,8 @@ class RecyclerViewAdapter(private var movieModelList: ArrayList<MovieModel>)
         }
         holder.binding.titleTextView.text = item.title
         holder.binding.overviewTextView.text = item.overview
-        holder.binding.rateTextView.text = item.vote_average.toString() + "/10"
+        val rate = item.vote_average.toString() + "/10"
+        holder.binding.rateTextView.text = rate
 
         val imageUrl = "https://image.tmdb.org/t/p/w500${item.poster_path}"
         Picasso.get().load(imageUrl).into(holder.binding.topRatedImageView)
