@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.movieapp.databinding.FragmentDetailScreenBinding
@@ -23,16 +22,12 @@ class DetailScreenFragment : Fragment() {
     private val binding get() = _binding!!
     var str = ""
 
-    val args by navArgs<DetailScreenFragmentArgs>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val args by navArgs<DetailScreenFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDetailScreenBinding.inflate(inflater, container, false)
         val view = binding.root
         getMovieDetail()
@@ -67,7 +62,8 @@ class DetailScreenFragment : Fragment() {
 
                     binding.detailScreenTitle.text = responseBody.title
                     binding.detailScreenOverview.text = responseBody.overview
-                    binding.detailScreenRate.text = responseBody.vote_average.toString() + "/10"
+                    val rate = responseBody.vote_average.toString() + "/10"
+                    binding.detailScreenRate.text = rate
                 }
             }
 

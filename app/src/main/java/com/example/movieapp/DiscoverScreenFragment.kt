@@ -12,7 +12,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.adapter.RecyclerViewAdapter
-import com.example.movieapp.databinding.FragmentDetailScreenBinding
 import com.example.movieapp.databinding.FragmentDiscoverScreenBinding
 import com.example.movieapp.models.MovieModel
 import com.example.movieapp.models.TopRatedMovieResponse
@@ -27,17 +26,12 @@ class DiscoverScreenFragment : Fragment() {
     private val binding get() = _binding!!
     private var recyclerViewAdapter: RecyclerViewAdapter? = null
 
-    val args by navArgs<DiscoverScreenFragmentArgs>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private val args by navArgs<DiscoverScreenFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDiscoverScreenBinding.inflate(inflater, container, false)
         val view = binding.root
 

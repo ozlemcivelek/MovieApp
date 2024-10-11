@@ -27,14 +27,10 @@ class DashboardScreenFragment : Fragment() {
     val imageList = ArrayList<SlideModel>()
     private var recyclerViewAdapter: RecyclerViewAdapter? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDashboardScreenBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
@@ -62,7 +58,7 @@ class DashboardScreenFragment : Fragment() {
                 if (response.isSuccessful) {
                     Log.d("TAG", "onResponse: ${response.body()}")
                     response.body()?.let { result ->
-                        result.results.forEach { // resimlerden rastgele 5 tanesini gösterebilirsin, resim ekrana tam sıgsın.
+                        result.results.forEach {
                             imageList.add(SlideModel("https://image.tmdb.org/t/p/w500${it.poster_path}", it.title))
                         }
                     }
