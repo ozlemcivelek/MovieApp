@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.DecimalFormat
 
 class DetailScreenFragment : Fragment() {
 
@@ -62,7 +63,10 @@ class DetailScreenFragment : Fragment() {
 
                     binding.detailScreenTitle.text = responseBody.title
                     binding.detailScreenOverview.text = responseBody.overview
-                    val rate = responseBody.vote_average.toString() + "/10"
+
+                    val decimalFormat = DecimalFormat("#.#")
+
+                    val rate = decimalFormat.format(responseBody.vote_average).toString() + "/10"
                     binding.detailScreenRate.text = rate
                 }
             }
