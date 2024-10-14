@@ -6,9 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.interfaces.ItemChangeListener
+import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
 import com.example.movieapp.adapter.RecyclerViewAdapter
 import com.example.movieapp.databinding.FragmentDashboardScreenBinding
@@ -33,6 +37,12 @@ class DashboardScreenFragment : Fragment() {
     ): View {
         _binding = FragmentDashboardScreenBinding.inflate(inflater, container, false)
         val view = binding.root
+        binding.imageSlider.setItemClickListener(object : ItemClickListener {
+            override fun onItemSelected(position: Int) {
+                Toast.makeText(context, "Clicked", Toast.LENGTH_LONG).show()
+            }
+
+        })
         return view
     }
 
@@ -47,7 +57,6 @@ class DashboardScreenFragment : Fragment() {
         topRatedMovies()
     }
 
-
     private fun upcomingMovies() {
         val service = Retrofit.getMovieService()
         service.getUpcomingMovies().enqueue(object : Callback<UpcomingMovieResponse> {
@@ -55,20 +64,7 @@ class DashboardScreenFragment : Fragment() {
                 call: Call<UpcomingMovieResponse>,
                 response: Response<UpcomingMovieResponse>
             ) {
-                if (response.isSuccessful) {
-                    Log.d("TAG", "onResponse: ${response.body()}")
-                    response.body()?.let { result ->
-                        result.results.forEach {
-                            imageList.add(SlideModel("https://image.tmdb.org/t/p/w500${it.poster_path}", it.title))
-                        }
-                    }
-                    binding.imageSlider.setImageList(imageList)
-
-                }
-                else {
-                    Log.e("TAG", "onResponse: ${response.errorBody()}")
-                }
-
+                upcomingResponseIsSuccessful(response)
             }
 
             override fun onFailure(call: Call<UpcomingMovieResponse>, t: Throwable) {
@@ -85,22 +81,7 @@ class DashboardScreenFragment : Fragment() {
                 call: Call<TopRatedMovieResponse>,
                 response: Response<TopRatedMovieResponse>
             ) {
-                response.body()?.let {it ->
-
-                    Log.d("TAG", "onResponse: ${it.results}")
-
-                    recyclerViewAdapter = RecyclerViewAdapter(it.results as ArrayList<MovieModel>)
-                    recyclerViewAdapter?.let {
-                        it.onItemClicked = { itemId->
-                            Log.d("TAG", "onResponse: Clicked")
-                            val action = DashboardScreenFragmentDirections.actionDashboardScreenFragmentToDetailScreenFragment(itemId)
-                            view?.findNavController()?.navigate(action)
-                        }
-                    }
-
-                    binding.recyclerView.adapter = recyclerViewAdapter
-
-                }
+                topRatedResponseIsSuccessful(response)
             }
 
             override fun onFailure(call: Call<TopRatedMovieResponse>, t: Throwable) {
@@ -108,6 +89,69 @@ class DashboardScreenFragment : Fragment() {
             }
 
         })
+    }
+
+    private fun topRatedResponseIsSuccessful(response: Response<TopRatedMovieResponse>) {
+        response.body()?.let {it ->
+
+            Log.d("TAG", "onResponse: ${it.results}")
+
+            recyclerViewAdapter = RecyclerViewAdapter(it.results as ArrayList<MovieModel>)
+            recyclerViewAdapter?.let {
+                it.onItemClicked = { itemId->
+                    Log.d("TAG", "onResponse: Clicked")
+                    goToDetailScreen(itemId)
+
+                }
+            }
+
+            binding.recyclerView.adapter = recyclerViewAdapter
+
+        }
+    }
+
+    private fun upcomingResponseIsSuccessful(response: Response<UpcomingMovieResponse>) {
+        if (response.isSuccessful) {
+            Log.d("TAG", "onResponse: ${response.body()}")
+            response.body()?.let { result ->
+                result.results.forEach {
+                    imageList.add(SlideModel(
+                        "https://image.tmdb.org/t/p/w500${it.backdrop_path}",
+                        ScaleTypes.FIT))
+                }
+                binding.imageSlider.setImageList(imageList,ScaleTypes.CENTER_CROP)
+
+                upcomingMovieResponse(response.body()!!)
+
+            }
+
+
+        } else {
+            Log.e("TAG", "onResponse: ${response.errorBody()}")
+        }
+    }
+
+    private fun upcomingMovieResponse( response: UpcomingMovieResponse){
+        binding.imageSliderOverviewTextView.text = response.results[0].overview
+        binding.imageSliderTitleTextView.text = response.results[0].title
+
+        binding.imageSlider.setItemChangeListener(object : ItemChangeListener {
+            override fun onItemChanged(position: Int) {
+                binding.imageSliderTitleTextView.text = response.results[position].title
+                binding.imageSliderOverviewTextView.text = response.results[position].overview
+            }
+        })
+
+        binding.imageSlider.setItemClickListener(object : ItemClickListener {
+            override fun onItemSelected(position: Int) {
+                goToDetailScreen(response.results[position].id)
+            }
+        })
+    }
+
+    private fun goToDetailScreen(movieId: Int){
+        val action = DashboardScreenFragmentDirections.actionDashboardScreenFragmentToDetailScreenFragment(movieId)
+        view?.findNavController()?.navigate(action)
     }
 
     override fun onDestroyView() {
