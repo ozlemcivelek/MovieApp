@@ -8,10 +8,11 @@
 
     <ImageView
         android:id="@+id/topRatedImageView"
-        android:layout_width="128dp"
+        android:layout_width="106dp"
         android:layout_height="128dp"
         android:layout_margin="10dp"
         android:contentDescription="@string/rate_image"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -34,10 +35,10 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/rateTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Title"
-            app:layout_constraintEnd_toStartOf="@id/rateTextView">
+            tools:text="Title">
 
         </TextView>
 
@@ -46,11 +47,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/rate1"
-            android:textSize="20sp"
+            android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-        </TextView>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -59,10 +59,12 @@
         android:id="@+id/overviewTextView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:ellipsize="end"
+        android:maxLines="5"
         android:text="@string/overview1"
         android:textSize="14sp"
         android:textStyle="italic"
-        android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/topRatedImageView"
