@@ -12,13 +12,18 @@ import com.squareup.picasso.Picasso
 import java.text.DecimalFormat
 
 
-class RecyclerViewAdapter(private var movieModelList: ArrayList<MovieModel>)
+class RecyclerViewAdapter
     : RecyclerView.Adapter<RecyclerViewAdapter.MovieHolder>() {
-
+    private var movieModelList: List<MovieModel> = emptyList()
     var onItemClicked: (Int) -> Unit = {}
 
-    class MovieHolder(val binding: RecyclerRowBinding) : RecyclerView.ViewHolder(binding.root){
+    class MovieHolder(val binding: RecyclerRowBinding) : RecyclerView.ViewHolder(binding.root) {
 //
+    }
+
+    fun setItems(movieModelList: List<MovieModel>) {
+        this.movieModelList = movieModelList
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(
@@ -43,7 +48,12 @@ class RecyclerViewAdapter(private var movieModelList: ArrayList<MovieModel>)
         val spannable = SpannableString(rate)
         val startIndex: Int = rate.indexOf("/10")
         val endIndex = startIndex + 3
-        spannable.setSpan(RelativeSizeSpan(1.2f), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannable.setSpan(
+            RelativeSizeSpan(1.2f),
+            startIndex,
+            endIndex,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
         holder.binding.rateTextView.text = spannable
 
         val imageUrl = "https://image.tmdb.org/t/p/w500${item.poster_path}"

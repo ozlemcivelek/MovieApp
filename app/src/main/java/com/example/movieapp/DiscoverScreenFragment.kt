@@ -25,6 +25,7 @@ class DiscoverScreenFragment : Fragment() {
     private var _binding: FragmentDiscoverScreenBinding? = null
     private val binding get() = _binding!!
     private var recyclerViewAdapter: RecyclerViewAdapter? = null
+    private val service = Retrofit.getMovieService()
 
     private val args by navArgs<DiscoverScreenFragmentArgs>()
 
@@ -54,7 +55,6 @@ class DiscoverScreenFragment : Fragment() {
     }
 
     private fun topDiscoverMovies(){
-        val service = Retrofit.getMovieService()
         service.getDiscoverMovies(args.genresId).enqueue(object: Callback<TopRatedMovieResponse> {
             override fun onResponse(
                 call: Call<TopRatedMovieResponse>,
@@ -64,7 +64,8 @@ class DiscoverScreenFragment : Fragment() {
 
                     Log.d("TAG", "onResponse: ${it.results}")
 
-                    recyclerViewAdapter = RecyclerViewAdapter(it.results as ArrayList<MovieModel>)
+                    recyclerViewAdapter = RecyclerViewAdapter()
+                    recyclerViewAdapter?.setItems(it.results)
                     recyclerViewAdapter?.let {
                         it.onItemClicked = { itemId->
                             Log.d("TAG", "onResponse: Clicked")
