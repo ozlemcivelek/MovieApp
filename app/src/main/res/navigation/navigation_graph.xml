@@ -3,47 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/dashboardScreenFragment">
+    app:startDestination="@id/dashboardFragment">
 
     <fragment
-        android:id="@+id/dashboardScreenFragment"
-        android:name="com.example.movieapp.DashboardScreenFragment"
-        android:label="fragment_dashboard_screen"
-        tools:layout="@layout/fragment_dashboard_screen">
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.movieapp.mvvm.ui.dashboard.DashboardFragment" >
+
         <action
-            android:id="@+id/action_dashboardScreenFragment_to_detailScreenFragment"
-            app:destination="@id/detailScreenFragment" />
+            android:id="@+id/action_dashboardFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
+
     <fragment
-        android:id="@+id/detailScreenFragment"
-        android:name="com.example.movieapp.DetailScreenFragment"
-        android:label="fragment_detail_screen"
-        tools:layout="@layout/fragment_detail_screen">
+        android:id="@+id/detailFragment"
+        android:name="com.example.movieapp.mvvm.ui.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail_screen" >
 
         <argument
             android:name="movieId"
             app:argType="integer" />
 
-        <action
-            android:id="@+id/action_detailScreenFragment_to_discoverScreenFragment"
-            app:destination="@id/discoverScreenFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/discoverScreenFragment"
-        android:name="com.example.movieapp.DiscoverScreenFragment"
-        android:label="fragment_discover_screen"
-        tools:layout="@layout/fragment_discover_screen">
-        <argument
-            android:name="genresId"
-            app:argType="string" />
 
-        <action
-            android:id="@+id/action_discoverScreenFragment_to_dashboardScreenFragment"
-            app:destination="@id/dashboardScreenFragment"
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/dashboardScreenFragment" />
-        <action
-            android:id="@+id/action_discoverScreenFragment_to_detailScreenFragment"
-            app:destination="@id/detailScreenFragment" />
-    </fragment>
+
+
 </navigation>
