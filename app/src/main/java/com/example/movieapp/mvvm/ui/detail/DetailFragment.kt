@@ -1,6 +1,7 @@
 package com.example.movieapp.mvvm.ui.detail
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -47,9 +48,9 @@ class DetailFragment : Fragment() {
         }
 
         binding.detailScreenDiscoverBtn.setOnClickListener {
-            //val action =
-            //   DetailScreenFragmentDirections.actionDetailScreenFragmentToDiscoverScreenFragment(str)
-            //findNavController().navigate(action)
+            Log.d("TAG", "Discover Button clicked.")
+            val action = DetailFragmentDirections.actionDetailFragmentToDiscoverFragment(str)
+            findNavController().navigate(action)
         }
 
         viewModel.getMovieDetail(args.movieId)
@@ -61,8 +62,9 @@ class DetailFragment : Fragment() {
                     val imageUrl = "https://image.tmdb.org/t/p/w500${response.poster_path}"
                     Picasso.get().load(imageUrl).into(binding.detailScreenImageView)
 
-                    str = response.genres.map { response.id.toString() }.toTypedArray().joinToString("%20or%20")
-                    //Log.d("TAG", "onResponse: $str")
+                    str = response.genres.map { index ->
+                        index.id.toString() }.toTypedArray().joinToString("%20or%20")
+                    Log.d("TAG", "onResponse:str :  $str")
 
                     binding.detailScreenTitle.text = response.title
                     binding.detailScreenOverview.text = response.overview
