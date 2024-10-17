@@ -1,4 +1,4 @@
-package com.example.movieapp
+package com.example.movieapp.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.adapter.RecyclerViewAdapter
 import com.example.movieapp.databinding.FragmentDiscoverScreenBinding
-import com.example.movieapp.models.MovieModel
 import com.example.movieapp.models.TopRatedMovieResponse
 import com.example.movieapp.network.retrofit.Retrofit
 import retrofit2.Call

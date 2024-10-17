@@ -3,9 +3,6 @@ package com.example.movieapp.mvvm.ui.discover
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.findNavController
-import com.example.movieapp.DiscoverScreenFragmentDirections
-import com.example.movieapp.adapter.RecyclerViewAdapter
 import com.example.movieapp.models.MovieModel
 import com.example.movieapp.models.TopRatedMovieResponse
 import com.example.movieapp.network.retrofit.Retrofit

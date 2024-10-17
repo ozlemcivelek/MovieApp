@@ -1,4 +1,4 @@
-package com.example.movieapp
+package com.example.movieapp.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.movieapp.databinding.FragmentDetailScreenBinding
 import com.example.movieapp.models.MovieDetailResponse
 import com.example.movieapp.network.retrofit.Retrofit
+import com.example.movieapp.utils.Utility
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,7 +56,7 @@ class DetailScreenFragment : Fragment() {
             ) {
                 response.body()?.let { responseBody ->
 
-                    val imageUrl = "https://image.tmdb.org/t/p/w500${responseBody.poster_path}"
+                    val imageUrl = Utility.getImageUrl(responseBody.poster_path)
                     Picasso.get().load(imageUrl).into(binding.detailScreenImageView)
 
                     str = responseBody.genres.map { it.id.toString() }.toTypedArray().joinToString("%20or%20")

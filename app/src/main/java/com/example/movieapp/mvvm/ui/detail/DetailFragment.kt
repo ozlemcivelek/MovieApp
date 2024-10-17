@@ -9,10 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.movieapp.DetailScreenFragmentDirections
-import com.example.movieapp.R
 import com.example.movieapp.databinding.FragmentDetailScreenBinding
-import com.example.movieapp.mvvm.ui.dashboard.DashboardViewModel
+import com.example.movieapp.utils.Utility
 import com.squareup.picasso.Picasso
 import java.text.DecimalFormat
 
@@ -59,7 +57,7 @@ class DetailFragment : Fragment() {
         viewModel.resultMovieDetail.observe(viewLifecycleOwner){
             if(it){
                 viewModel.movieDetail?.let { response ->
-                    val imageUrl = "https://image.tmdb.org/t/p/w500${response.poster_path}"
+                    val imageUrl = Utility.getImageUrl(response.poster_path)
                     Picasso.get().load(imageUrl).into(binding.detailScreenImageView)
 
                     str = response.genres.map { index ->

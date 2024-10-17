@@ -10,15 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.movieapp.DiscoverScreenFragmentArgs
-import com.example.movieapp.DiscoverScreenFragmentDirections
-import com.example.movieapp.R
 import com.example.movieapp.adapter.RecyclerViewAdapter
-import com.example.movieapp.databinding.FragmentDetailScreenBinding
 import com.example.movieapp.databinding.FragmentDiscoverScreenBinding
-import com.example.movieapp.mvvm.ui.dashboard.DashboardFragmentDirections
-import com.example.movieapp.mvvm.ui.dashboard.DashboardViewModel
-import com.example.movieapp.mvvm.ui.detail.DetailFragmentArgs
 
 class DiscoverFragment : Fragment() {
 

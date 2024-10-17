@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.databinding.RecyclerRowBinding
 import com.example.movieapp.models.MovieModel
+import com.example.movieapp.utils.Utility
 import com.squareup.picasso.Picasso
 import java.text.DecimalFormat
 
@@ -56,7 +57,7 @@ class RecyclerViewAdapter
         )
         holder.binding.rateTextView.text = spannable
 
-        val imageUrl = "https://image.tmdb.org/t/p/w500${item.poster_path}"
+        val imageUrl = Utility.getImageUrl(item.poster_path)
         Picasso.get().load(imageUrl).into(holder.binding.topRatedImageView)
 
     }

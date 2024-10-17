@@ -9,6 +9,7 @@ import com.example.movieapp.models.MovieModel
 import com.example.movieapp.models.TopRatedMovieResponse
 import com.example.movieapp.models.UpcomingMovieResponse
 import com.example.movieapp.network.retrofit.Retrofit
+import com.example.movieapp.utils.Utility
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,7 +36,7 @@ class DashboardViewModel : ViewModel() {
                         safeResult.forEach {
                             imageList.add(
                                 SlideModel(
-                                    "https://image.tmdb.org/t/p/w500${it.backdrop_path}",
+                                    Utility.getImageUrl(it.backdrop_path),
                                     ScaleTypes.FIT
                                 )
                             )
